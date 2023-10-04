@@ -11,8 +11,6 @@ import { Provider as Web3Provider, ProviderProps as Web3Props } from 'hooks/web3
 import { Provider as I18nProvider } from 'i18n'
 import { Provider as AtomProvider } from 'jotai'
 import { PropsWithChildren, StrictMode, useState } from 'react'
-import { Provider as ReduxProvider } from 'react-redux'
-import { store } from 'state'
 import { MulticallUpdater } from 'state/multicall'
 import styled from 'styled-components/macro'
 import { Provider as ThemeProvider, Theme } from 'theme'
@@ -53,21 +51,19 @@ export default function Widget(props: PropsWithChildren<WidgetProps>) {
             <DialogWrapper ref={setDialog} />
             <DialogProvider value={props.dialog || dialog} options={props.dialogOptions}>
               <ErrorBoundary onError={props.onError}>
-                <ReduxProvider store={store}>
-                  {
-                    // UI configuration must be passed to initial atom values, or the first frame will render incorrectly.
-                  }
-                  <AtomProvider initialValues={useInitialFlags(props as Flags)}>
-                    <WidgetUpdater {...props} />
-                    <Web3Provider {...(props as Web3Props)}>
-                      <BlockNumberProvider>
-                        <MulticallUpdater />
-                        <TransactionsUpdater {...(props as TransactionEventHandlers)} />
-                        <TokenListProvider list={props.tokenList}>{props.children}</TokenListProvider>
-                      </BlockNumberProvider>
-                    </Web3Provider>
-                  </AtomProvider>
-                </ReduxProvider>
+                {
+                  // UI configuration must be passed to initial atom values, or the first frame will render incorrectly.
+                }
+                <AtomProvider initialValues={useInitialFlags(props as Flags)}>
+                  <WidgetUpdater {...props} />
+                  <Web3Provider {...(props as Web3Props)}>
+                    <BlockNumberProvider>
+                      <MulticallUpdater />
+                      <TransactionsUpdater {...(props as TransactionEventHandlers)} />
+                      <TokenListProvider list={props.tokenList}>{props.children}</TokenListProvider>
+                    </BlockNumberProvider>
+                  </Web3Provider>
+                </AtomProvider>
               </ErrorBoundary>
             </DialogProvider>
           </I18nProvider>

@@ -54,3 +54,7 @@ export function isTokenOnList(chainTokenMap: ChainTokenMap, token?: Token): bool
 export function formattedFeeAmount(feeAmount: FeeAmount): number {
   return feeAmount / 10000
 }
+
+export function isPlainObject(obj: any) {
+  return Object.prototype.toString.call(obj) === '[object Object]'
+}

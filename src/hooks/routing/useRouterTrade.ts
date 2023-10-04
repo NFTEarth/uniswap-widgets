@@ -1,13 +1,11 @@
-import { skipToken } from '@reduxjs/toolkit/query/react'
 import { Currency, CurrencyAmount, Token, TradeType } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import useIsValidBlock from 'hooks/useIsValidBlock'
 import { useStablecoinAmountFromFiatValue } from 'hooks/useStablecoinAmountFromFiatValue'
-import useTimeout from 'hooks/useTimeout'
 import ms from 'ms.macro'
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useGetQuoteArgs } from 'state/routing/args'
-import { useGetTradeQuoteQueryState, useLazyGetTradeQuoteQuery } from 'state/routing/slice'
+import { useLazyGetTradeQuoteQuery } from 'state/routing/slice'
 import { InterfaceTrade, QuoteState, TradeState } from 'state/routing/types'
 
 import { QuoteConfig, QuoteType } from './types'
@@ -61,38 +59,21 @@ export function useRouterTrade(
 
   // Get the cached state *immediately* to update the UI without sending a request - using useGetTradeQuoteQueryState -
   // but debounce the actual request - using useLazyGetTradeQuoteQuery - to avoid flooding the router / JSON-RPC endpoints.
-  const {
-    data: tradeResult,
-    currentData: currentTradeResult,
-    fulfilledTimeStamp,
-    isError,
-  } = useGetTradeQuoteQueryState(queryArgs)
+  const { data: tradeResult, isError } = useLazyGetTradeQuoteQuery(queryArgs, { refetchInterval: pollingInterval })
 
-  // An already-fetched value should be refetched if it is older than the pollingInterval.
-  // Without explicit refetch, it would not be refetched until another pollingInterval has elapsed.
-  const [trigger] = useLazyGetTradeQuoteQuery({ pollingInterval })
-  const request = useCallback(() => {
-    const { refetch } = trigger(queryArgs, /*preferCacheValue=*/ true)
-    if (fulfilledTimeStamp && Date.now() - fulfilledTimeStamp > pollingInterval) {
-      refetch()
-    }
-  }, [fulfilledTimeStamp, pollingInterval, queryArgs, trigger])
-  useTimeout(request, 200)
-
-  const isCurrent = currentTradeResult === tradeResult
   const isValidBlock = useIsValidBlock(Number(tradeResult?.blockNumber))
   const gasUseEstimateUSD = useStablecoinAmountFromFiatValue(tradeResult?.gasUseEstimateUSD)
 
   return useMemo(() => {
-    if (!amountSpecified || isError || queryArgs === skipToken) {
+    if (!amountSpecified || isError || queryArgs === null) {
       return TRADE_INVALID
-    } else if (tradeResult?.state === QuoteState.NOT_FOUND && isCurrent) {
+    } else if (tradeResult?.state === QuoteState.NOT_FOUND) {
       return TRADE_NOT_FOUND
     } else if (!tradeResult?.trade) {
       return TRADE_LOADING
     } else {
-      const state = isCurrent && isValidBlock ? TradeState.VALID : TradeState.LOADING
+      const state = isValidBlock ? TradeState.VALID : TradeState.LOADING
       return { state, trade: tradeResult.trade, gasUseEstimateUSD }
     }
-  }, [amountSpecified, gasUseEstimateUSD, isCurrent, isError, isValidBlock, queryArgs, tradeResult])
+  }, [amountSpecified, gasUseEstimateUSD, isError, isValidBlock, queryArgs, tradeResult])
 }

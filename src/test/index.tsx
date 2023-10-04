@@ -21,11 +21,9 @@ import { TestableProvider as I18nProvider } from 'i18n'
 import { Provider as AtomProvider } from 'jotai'
 import { Atom } from 'jotai'
 import { PropsWithChildren, ReactElement, useState } from 'react'
-import { Provider as ReduxProvider } from 'react-redux'
-import { store } from 'state'
 import { Provider as ThemeProvider } from 'theme'
 import JsonRpcConnector from 'utils/JsonRpcConnector'
-import { WalletConnectPopup, WalletConnectQR } from 'utils/WalletConnect'
+import { WalletConnectQR } from 'utils/WalletConnect'
 
 export * from '@testing-library/react'
 export { default as userEvent } from '@testing-library/user-event'
@@ -48,25 +46,23 @@ export function TestableWidget(props: PropsWithChildren<TestableWidgetProps>) {
         <div ref={setDialog} />
         <DialogProvider value={dialog}>
           <ErrorBoundary>
-            <ReduxProvider store={store}>
-              <AtomProvider initialValues={props.initialAtomValues}>
-                <Web3Provider provider={hardhat.provider}>
-                  <ConnectorsProvider
-                    connectors={{
-                      user: {} as JsonRpcConnector,
-                      metaMask: {} as MetaMask,
-                      walletConnect: {} as WalletConnectPopup,
-                      walletConnectQR: {} as WalletConnectQR,
-                      network: {} as Network,
-                    }}
-                  >
-                    <BlockNumberProvider>
-                      <TokenListProvider list={TokenList.tokens}>{props.children}</TokenListProvider>
-                    </BlockNumberProvider>
-                  </ConnectorsProvider>
-                </Web3Provider>
-              </AtomProvider>
-            </ReduxProvider>
+            <AtomProvider initialValues={props.initialAtomValues}>
+              <Web3Provider provider={hardhat.provider}>
+                <ConnectorsProvider
+                  connectors={{
+                    user: {} as JsonRpcConnector,
+                    metaMask: {} as MetaMask,
+                    walletConnect: {} as any,
+                    walletConnectQR: {} as WalletConnectQR,
+                    network: {} as Network,
+                  }}
+                >
+                  <BlockNumberProvider>
+                    <TokenListProvider list={TokenList.tokens}>{props.children}</TokenListProvider>
+                  </BlockNumberProvider>
+                </ConnectorsProvider>
+              </Web3Provider>
+            </AtomProvider>
           </ErrorBoundary>
         </DialogProvider>
       </I18nProvider>

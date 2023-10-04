@@ -1,6 +1,4 @@
 import { BaseProvider } from '@ethersproject/providers'
-import { isPlainObject } from '@reduxjs/toolkit'
-import { SkipToken, skipToken } from '@reduxjs/toolkit/query/react'
 import { Currency, CurrencyAmount, TradeType } from '@uniswap/sdk-core'
 import { QuoteConfig, QuoteType } from 'hooks/routing/types'
 import useIsWindowVisible from 'hooks/useIsWindowVisible'
@@ -8,6 +6,7 @@ import { useAtomValue } from 'jotai/utils'
 import { useMemo } from 'react'
 import { swapEventHandlersAtom, swapRouterUrlAtom } from 'state/swap'
 
+import { isPlainObject } from '../../utils'
 import { GetQuoteArgs } from './types'
 import { currencyAddressForSwapQuote } from './utils'
 
@@ -62,7 +61,7 @@ export function useGetQuoteArgs(
     currencyOut: Currency
   }>,
   quoteConfig: QuoteConfig
-): GetQuoteArgs | SkipToken {
+): GetQuoteArgs | null {
   const routerUrl = useAtomValue(swapRouterUrlAtom)
   const { onSwapQuote } = useAtomValue(swapEventHandlersAtom)
   const args = useMemo(() => {
@@ -90,7 +89,7 @@ export function useGetQuoteArgs(
   }, [amountSpecified?.quotient, currencyIn, currencyOut, onSwapQuote, provider, quoteConfig, routerUrl, tradeType])
 
   const isWindowVisible = useIsWindowVisible()
-  if (quoteConfig.type === QuoteType.SKIP || !isWindowVisible) return skipToken
+  if (quoteConfig.type === QuoteType.SKIP || !isWindowVisible) return null
 
-  return args ?? skipToken
+  return args ?? null
 }
