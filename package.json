@@ -1,5 +1,5 @@
 {
-  "name": "@uniswap/widgets",
+  "name": "@nftearth/uniswap-widgets",
   "description": "Uniswap Interface",
   "homepage": "https://github.com/Uniswap/widgets#readme",
   "repository": "https://github.com/Uniswap/widgets",
@@ -60,11 +60,10 @@
     "@babel/runtime": ">=7.17.0",
     "@fontsource/ibm-plex-mono": "^4.5.1",
     "@fontsource/inter": "^4.5.1",
+    "@nftearth/uniswap-multicall": "^1.2.2",
     "@popperjs/core": "^2.4.4",
-    "@reduxjs/toolkit": "^1.6.1",
     "@uniswap/conedison": "^1.8.0",
     "@uniswap/permit2-sdk": "^1.2.0",
-    "@uniswap/redux-multicall": "^1.1.8",
     "@uniswap/router-sdk": "^1.6.0",
     "@uniswap/sdk-core": "^4.0.7",
     "@uniswap/smart-order-router": "^3.16.25",
@@ -99,11 +98,10 @@
     "react-dom": ">=17.0.1",
     "react-feather": "^2.0.8",
     "react-popper": "^2.2.3",
-    "react-redux": ">=7.2.2",
+    "react-query": "^3.39.3",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
     "rebass": "^4.0.7",
-    "redux": ">=4.1.2",
     "resize-observer-polyfill": "^1.5.1",
     "setimmediate": "^1.0.5",
     "styled-components": ">=5",
@@ -116,8 +114,6 @@
     "ethers": "^5.7.2",
     "react": ">=17.0.1",
     "react-dom": ">=17.0.1",
-    "react-redux": ">=7.2.2",
-    "redux": ">=4.1.2",
     "styled-components": ">=5"
   },
   "optionalDependencies": {
@@ -158,7 +154,6 @@
     "@types/qs": "^6.9.2",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/react-redux": "^7.1.16",
     "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/react-window": "^1.8.2",
     "@types/rebass": "^4.0.7",
@@ -214,5 +209,6 @@
   },
   "resolutions": {
     "decode-uri-component": "^0.2.2"
-  }
+  },
+  "version": "1.0.0"
 }
