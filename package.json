@@ -62,7 +62,6 @@
     "@fontsource/inter": "^4.5.1",
     "@nftearth/uniswap-multicall": "^1.2.2",
     "@popperjs/core": "^2.4.4",
-    "@uniswap/conedison": "^1.8.0",
     "@uniswap/permit2-sdk": "^1.2.0",
     "@uniswap/router-sdk": "^1.6.0",
     "@uniswap/sdk-core": "^4.0.7",
@@ -71,6 +70,8 @@
     "@uniswap/universal-router-sdk": "^1.5.7",
     "@uniswap/v2-sdk": "^3.2.1",
     "@uniswap/v3-sdk": "^3.10.0",
+    "@walletconnect/ethereum-provider-v1": "npm:@walletconnect/ethereum-provider@^1.8.0",
+    "@walletconnect/ethereum-provider-v2": "npm:@walletconnect/ethereum-provider@^2.4.6",
     "@web3-react/core": "^8.2.0",
     "@web3-react/eip1193": "^8.2.0",
     "@web3-react/empty": "^8.2.0",
@@ -210,5 +211,5 @@
   "resolutions": {
     "decode-uri-component": "^0.2.2"
   },
-  "version": "1.0.2"
+  "version": "1.0.3"
 }
