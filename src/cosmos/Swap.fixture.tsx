@@ -1,19 +1,12 @@
 import { tokens } from '@uniswap/default-token-list'
 import { TokenInfo } from '@uniswap/token-lists'
-import {
-  darkTheme,
-  defaultTheme,
-  DialogAnimationType,
-  lightTheme,
-  SupportedChainId,
-  SwapWidget,
-} from '@uniswap/widgets'
+import { darkTheme, defaultTheme, DialogAnimationType, lightTheme, SwapWidget } from '@uniswap/widgets'
 import Row from 'components/Row'
 import { CHAIN_NAMES_TO_IDS } from 'constants/chains'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useValue } from 'react-cosmos/fixture'
 
-import { DAI, USDC_MAINNET } from '../constants/tokens'
+import { DAI, NFTE_MAINNET, USDC_MAINNET } from '../constants/tokens'
 import EventFeed, { Event, HANDLERS } from './EventFeed'
 import useOption from './useOption'
 import useProvider from './useProvider'
@@ -26,11 +19,64 @@ const TOKEN_WITH_NO_LOGO = {
   address: '0x3819f64f282bf135d62168C1e513280dAF905e06',
 }
 
-const mainnetTokens = tokens.filter((token) => token.chainId === SupportedChainId.MAINNET)
+const nfteTokens = [
+  {
+    chainId: 1,
+    address: '0x8c223a82E07feCB49D602150d7C2B3A4c9630310',
+    name: 'NFTEarthOFT',
+    symbol: 'NFTE',
+    decimals: 18,
+    logoURI: 'https://s2.coinmarketcap.com/static/img/coins/64x64/25305.png',
+    extensions: {
+      bridgeInfo: {
+        '10': {
+          tokenAddress: '0x8637725aDa78db0674a679CeA2A5e0A0869EF4A1',
+        },
+        '137': {
+          tokenAddress: '0x492Fa53b88614923937B7197C87E0F7F8EEb7B20',
+        },
+        '42161': {
+          tokenAddress: '0x51B902f19a56F0c8E409a34a215AD2673EDF3284',
+        },
+      },
+    },
+  },
+  {
+    chainId: 10,
+    address: '0x8637725aDa78db0674a679CeA2A5e0A0869EF4A1',
+    name: 'NFTEarthOFT',
+    symbol: 'NFTE',
+    decimals: 18,
+    logoURI: 'https://s2.coinmarketcap.com/static/img/coins/64x64/25305.png',
+    extensions: {
+      bridgeInfo: {
+        '1': {
+          tokenAddress: '0x8c223a82E07feCB49D602150d7C2B3A4c9630310',
+        },
+      },
+    },
+  },
+  {
+    chainId: 42161,
+    address: '0x51B902f19a56F0c8E409a34a215AD2673EDF3284',
+    name: 'NFTEarthOFT',
+    symbol: 'NFTE',
+    decimals: 18,
+    logoURI: 'https://s2.coinmarketcap.com/static/img/coins/64x64/25305.png',
+    extensions: {
+      bridgeInfo: {
+        '1': {
+          tokenAddress: '0x8c223a82E07feCB49D602150d7C2B3A4c9630310',
+        },
+      },
+    },
+  },
+  ...tokens,
+].filter((token) => ['WETH', 'ETH', 'NFTE', 'USDC', 'DAI', 'ARB'].includes(token.symbol))
 const tokenLists: Record<string, TokenInfo[] | string> = {
   Default: tokens,
   Extended: 'https://extendedtokens.uniswap.org/',
-  'Mainnet only': mainnetTokens,
+  'NFTE only': nfteTokens,
   Logoless: [TOKEN_WITH_NO_LOGO],
 }
 
@@ -57,6 +103,7 @@ function Fixture() {
     Native: 'NATIVE',
     DAI: DAI.address,
     USDC: USDC_MAINNET.address,
+    NFTE: NFTE_MAINNET.address,
   }
   const defaultInputToken = useOption('defaultInputToken', { options: currencies, defaultValue: 'Native' })
   const [defaultInputAmount] = useValue('defaultInputAmount', { defaultValue: 0 })
@@ -112,7 +159,7 @@ function Fixture() {
       tokenList={tokenList}
       width={width}
       routerUrl={routerUrl}
-      brandedFooter={brandedFooter}
+      brandedFooter={false}
       dialogOptions={{
         animationType: dialogAnimation,
         pageCentered,

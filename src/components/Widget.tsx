@@ -2,6 +2,7 @@ import { TokenInfo } from '@uniswap/token-lists'
 import { DialogWidgetProps, Provider as DialogProvider } from 'components/Dialog'
 import ErrorBoundary, { OnError } from 'components/Error/ErrorBoundary'
 import { SupportedLocale } from 'constants/locales'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { TransactionEventHandlers, TransactionsUpdater } from 'hooks/transactions'
 import { Provider as BlockNumberProvider } from 'hooks/useBlockNumber'
 import { Flags, useInitialFlags } from 'hooks/useSyncFlags'
@@ -41,6 +42,8 @@ export interface WidgetProps
   onError?: OnError
 }
 
+const queryClient = new QueryClient()
+
 export default function Widget(props: PropsWithChildren<WidgetProps>) {
   const [dialog, setDialog] = useState<HTMLDivElement | null>(props.dialog || null)
   return (
@@ -54,16 +57,18 @@ export default function Widget(props: PropsWithChildren<WidgetProps>) {
                 {
                   // UI configuration must be passed to initial atom values, or the first frame will render incorrectly.
                 }
-                <AtomProvider initialValues={useInitialFlags(props as Flags)}>
-                  <WidgetUpdater {...props} />
-                  <Web3Provider {...(props as Web3Props)}>
-                    <BlockNumberProvider>
-                      <MulticallUpdater />
-                      <TransactionsUpdater {...(props as TransactionEventHandlers)} />
-                      <TokenListProvider list={props.tokenList}>{props.children}</TokenListProvider>
-                    </BlockNumberProvider>
-                  </Web3Provider>
-                </AtomProvider>
+                <QueryClientProvider client={queryClient}>
+                  <AtomProvider initialValues={useInitialFlags(props as Flags)}>
+                    <WidgetUpdater {...props} />
+                    <Web3Provider {...(props as Web3Props)}>
+                      <BlockNumberProvider>
+                        <MulticallUpdater />
+                        <TransactionsUpdater {...(props as TransactionEventHandlers)} />
+                        <TokenListProvider list={props.tokenList}>{props.children}</TokenListProvider>
+                      </BlockNumberProvider>
+                    </Web3Provider>
+                  </AtomProvider>
+                </QueryClientProvider>
               </ErrorBoundary>
             </DialogProvider>
           </I18nProvider>

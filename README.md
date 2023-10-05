@@ -1,14 +1,14 @@
-# Uniswap Labs Widgets
+# Uniswap Labs Widgets Without REDUX
 
-[![npm](https://img.shields.io/npm/v/@uniswap/widgets)](https://www.npmjs.com/package/@uniswap/widgets)
+[![npm](https://img.shields.io/npm/v/@nftearth/uniswap-widgets)](https://www.npmjs.com/package/@nftearth/uniswap-widgets)
 [![Unit tests](https://github.com/Uniswap/interface/actions/workflows/test.yaml/badge.svg)](https://github.com/Uniswap/interface/actions/workflows/test.yaml)
 [![Integration tests](https://github.com/Uniswap/interface/actions/workflows/e2e.yaml/badge.svg)](https://github.com/Uniswap/interface/actions/workflows/e2e.yaml)
 [![Lint](https://github.com/Uniswap/interface/actions/workflows/lint.yml/badge.svg)](https://github.com/Uniswap/interface/actions/workflows/lint.yml)
 [![Crowdin](https://badges.crowdin.net/uniswap-interface/localized.svg)](https://crowdin.com/project/uniswap-interface)
 
-The `@uniswap/widgets` package is an [npm package](https://www.npmjs.com/package/@uniswap/widgets) of React components used to provide subsets of the Uniswap Protocol functionality in a small and configurable user interface element.
+The `@nftearth/uniswap-widgets` package is an [npm package](https://www.npmjs.com/package/@nftearth/uniswap-widgets) of React components used to provide subsets of the Uniswap Protocol functionality in a small and configurable user interface element.
 
-# Uniswap Labs Swap Widget
+# Uniswap Labs Swap Widget Without REDUX
 
 The Swap Widget bundles the whole swapping experience into a single React component that developers can easily embed in their app with one line of code. 
 
@@ -21,10 +21,10 @@ You can customize the theme (colors, fonts, border radius, and more) to match th
 Install the widgets library via `npm` or `yarn`.
 
 ```js
-yarn add @uniswap/widgets
+yarn add @nftearth/uniswap-widgets
 ```
 ```js
-npm i --save @uniswap/widgets
+npm i --save @nftearth/uniswap-widgets
 ```
 
 ## Documentation

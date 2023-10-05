@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro'
-import { signTypedData } from '@uniswap/conedison/provider/signing'
+import { signTypedData } from 'utils/conedison/provider/signing'
 import { AllowanceTransfer, MaxAllowanceTransferAmount, PERMIT2_ADDRESS, PermitSingle } from '@uniswap/permit2-sdk'
 import { CurrencyAmount, Token } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'

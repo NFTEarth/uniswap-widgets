@@ -137,6 +137,40 @@ export const USDC_BASE = new Token(
   'USDC',
   'USD Coin'
 )
+export const NFTE_MAINNET = new Token(
+  SupportedChainId.MAINNET,
+  '0x8c223a82E07feCB49D602150d7C2B3A4c9630310',
+  18,
+  'NFTE',
+  'NFTEarthOFT'
+)
+export const NFTE_OPTIMISM = new Token(
+  SupportedChainId.OPTIMISM,
+  '0x8637725aDa78db0674a679CeA2A5e0A0869EF4A1',
+  18,
+  'NFTE',
+  'NFTEarthOFT'
+)
+export const NFTE_POLYGON = new Token(
+  SupportedChainId.POLYGON,
+  '0x492Fa53b88614923937B7197C87E0F7F8EEb7B20',
+  18,
+  'NFTE',
+  'NFTEarthOFT'
+)
+export const NFTE_ARBITRUM = new Token(
+  SupportedChainId.ARBITRUM_ONE,
+  '0x51B902f19a56F0c8E409a34a215AD2673EDF3284',
+  18,
+  'NFTE',
+  'NFTEarthOFT'
+)
+export const NFTE: { [chainId: number]: Token } = {
+  [SupportedChainId.MAINNET]: NFTE_MAINNET,
+  [SupportedChainId.OPTIMISM]: NFTE_OPTIMISM,
+  [SupportedChainId.POLYGON]: NFTE_POLYGON,
+  [SupportedChainId.ARBITRUM_ONE]: NFTE_ARBITRUM,
+}
 export const USDC: { [chainId in SupportedChainId]: Token } = {
   [SupportedChainId.MAINNET]: USDC_MAINNET,
   [SupportedChainId.ARBITRUM_ONE]: USDC_ARBITRUM,

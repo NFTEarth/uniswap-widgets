@@ -113,6 +113,7 @@ export const useLazyGetTradeQuoteQuery = (args: GetQuoteArgs | null, options?: U
     }
   }
 
+  const { routerPreference, routerUrl, tradeType, provider, quoteType, onQuote, ...cleanedArgs } = args || {}
   const { isLoading, data, error, isSuccess } = useQuery<{
     data?: TradeResult | any
     state?: QuoteState
@@ -120,7 +121,7 @@ export const useLazyGetTradeQuoteQuery = (args: GetQuoteArgs | null, options?: U
       status: string
       error: any
     }
-  }>([`trade-quote`, JSON.stringify(args)], () => queryFn(args), {
+  }>([`trade-quote`, JSON.stringify(cleanedArgs)], () => queryFn(args), {
     staleTime: 10_000,
   })
 
