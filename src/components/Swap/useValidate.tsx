@@ -8,9 +8,7 @@ function isAddressOrAddressMap(addressOrMap: DefaultAddress): boolean {
   if (typeof addressOrMap === 'object') {
     return Object.values(addressOrMap).every((address) => isAddress(address))
   }
-  if (typeof addressOrMap === 'string') {
-    return typeof isAddress(addressOrMap) === 'string'
-  }
+  return typeof isAddress(addressOrMap) === 'string'
   return false
 }
 

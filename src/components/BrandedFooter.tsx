@@ -1,3 +1,4 @@
+import React from 'react'
 import { Trans } from '@lingui/macro'
 import Row from 'components/Row'
 import { Logo } from 'icons'

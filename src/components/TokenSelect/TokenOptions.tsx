@@ -223,6 +223,7 @@ const TokenOptions = forwardRef<TokenOptionsHandle, TokenOptionsProps>(function 
       style={{
         minHeight: Math.min(tokens.length, MIN_VISIBLE_TOKENS) * ITEM_SIZE,
         overflow: 'hidden',
+        position: 'relative'
       }}
     >
       {/* OnHover is a workaround to Safari's incorrect (overflow: overlay) implementation */}

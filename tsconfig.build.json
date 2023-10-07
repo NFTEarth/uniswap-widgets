@@ -12,8 +12,8 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
+    "lib": ["DOM", "ESNext", "DOM.Iterable"],
+    "module": "ESNext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -24,8 +24,9 @@
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "es5",
-    "useUnknownInCatchVariables": false
+    "target": "es2018",
+    "useUnknownInCatchVariables": false,
+    "types": ["node"]
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*.d.ts", "src/index.tsx"]
